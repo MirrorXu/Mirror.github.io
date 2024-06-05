@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     handlePlay() {
-      if (this.playing) return;
+      // if (this.playing) return;
       if (audioPlayer) {
         audioPlayer.play();
       }
@@ -99,6 +99,8 @@ export default {
     background-color: deeppink;
     border-radius: 50%;
     cursor: pointer;
+    user-selcet: none;
+    -webkit-tap-highlight-color: transparent;
   }
 }
 </style>
