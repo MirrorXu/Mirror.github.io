@@ -16,16 +16,20 @@
       :style="imgStyle"
       @click="handlePlay"
     />
+    <div class="version">Version: {{ version }}</div>
   </div>
 </template>
 <script>
 import frog from "@/assets/audio/frog_1.mp3";
+import AppInfo from "../package.json";
 
+console.log(AppInfo);
 let audioPlayer = null;
 export default {
   name: "App-Entry",
   data() {
     return {
+      version: AppInfo.version,
       window: {
         innerWidth: 0,
         innerHeight: 0,
@@ -130,6 +134,7 @@ export default {
   align-items: center;
   justify-content: center;
   position: relative;
+
   .info {
     position: absolute;
     top: 0;
@@ -153,6 +158,14 @@ export default {
     cursor: pointer;
     user-selcet: none;
     -webkit-tap-highlight-color: transparent;
+  }
+  .version {
+    position: absolute;
+    bottom: 0;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 100;
+    padding: 10px;
   }
 }
 </style>
