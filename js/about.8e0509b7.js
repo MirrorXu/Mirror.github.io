@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkhappy_frog"]=self["webpackChunkhappy_frog"]||[]).push([[594],{9220:function(n,t,u){u.r(t),u.d(t,{default:function(){return f}});var s=function(){var n=this;n._self._c;return n._m(0)},a=[function(){var n=this,t=n._self._c;return t("div",{staticClass:"about"},[t("h1",[n._v("This is an about page")])])}],r=u(1656),e={},l=(0,r.A)(e,s,a,!1,null,null,null),f=l.exports}}]);
+//# sourceMappingURL=about.8e0509b7.js.map
