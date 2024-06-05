@@ -96,7 +96,7 @@ export default {
   .btn {
     //height: 50px;
     //width: 50px;
-    background-color: deeppink;
+    background-color: rgba(0, 0, 0, 0);
     border-radius: 50%;
     cursor: pointer;
     user-selcet: none;
