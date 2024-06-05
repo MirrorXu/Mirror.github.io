@@ -38,7 +38,7 @@ export default {
         canUse: false,
         //参数
         // 震动200ms
-        parameters: 200,
+        parameters: 500,
         // 震动  'SOS' in Morse.
         // parameters: [
         //   100, 30, 100, 30, 100, 30, 200, 30, 200, 30, 200, 30, 100, 30, 100,
@@ -62,7 +62,12 @@ export default {
     },
   },
   created() {
-    if (window?.navigator?.vibrate) {
+    navigator.vibrate =
+      navigator.vibrate ||
+      navigator.webkitVibrate ||
+      navigator.mozVibrate ||
+      navigator.msVibrate;
+    if (navigator.vibrate) {
       this.vibrateData.canUse = true;
     } else {
       this.vibrateData.canUse = false;
@@ -71,13 +76,15 @@ export default {
   methods: {
     handlePlay() {
       // if (this.playing) return;
+      const { vibrateData } = this;
       if (audioPlayer) {
         try {
-          window.navigator.vibrate(this.vibrateData.parameters);
+          audioPlayer.play();
+          if (vibrateData.canUse) {
+            navigator.vibrate(vibrateData.parameters);
+          }
         } catch (err) {
           this._info = err;
-        } finally {
-          audioPlayer.play();
         }
       }
     },
