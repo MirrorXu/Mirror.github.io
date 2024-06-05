@@ -5,6 +5,7 @@
     <!--      <router-link to="/about">About</router-link>-->
     <!--    </nav>-->
     <!--    <router-view />-->
+    <div class="info">{{ vibrateData }}</div>
     <audio controls class="audioPlayer" :ref="playerId">
       <source :src="audioSource" type="audio/mp3" />
       Your browser does not support the <code>audio</code> element.
@@ -32,6 +33,18 @@ export default {
       audioSource: frog,
       playerId: "player",
       playing: false,
+      vibrateData: {
+        // 是否可用
+        canUse: false,
+        //参数
+        // 震动200ms
+        parameters: 200,
+        // 震动  'SOS' in Morse.
+        // parameters: [
+        //   100, 30, 100, 30, 100, 30, 200, 30, 200, 30, 200, 30, 100, 30, 100,
+        //   30, 100,
+        // ],
+      },
     };
   },
   computed: {
@@ -39,10 +52,18 @@ export default {
       return { width: `${innerWidth / 4}px` };
     },
   },
+  created() {
+    if (window?.navigator?.vibrate) {
+      this.vibrateData.canUse = true;
+    } else {
+      this.vibrateData.canUse = false;
+    }
+  },
   methods: {
     handlePlay() {
       // if (this.playing) return;
       if (audioPlayer) {
+        window.navigator.vibrate(this.vibrateData.parameters);
         audioPlayer.play();
       }
     },
@@ -84,8 +105,18 @@ export default {
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
+  .info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    padding: 10px;
+  }
 
   .audioPlayer {
     visibility: hidden;
