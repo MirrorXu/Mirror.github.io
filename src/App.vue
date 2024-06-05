@@ -5,7 +5,7 @@
     <!--      <router-link to="/about">About</router-link>-->
     <!--    </nav>-->
     <!--    <router-view />-->
-    <div class="info">{{ vibrateData }}</div>
+    <div class="info">{{ _info }}</div>
     <audio controls class="audioPlayer" :ref="playerId">
       <source :src="audioSource" type="audio/mp3" />
       Your browser does not support the <code>audio</code> element.
@@ -45,11 +45,20 @@ export default {
         //   30, 100,
         // ],
       },
+      err: false,
     };
   },
   computed: {
     imgStyle() {
       return { width: `${innerWidth / 4}px` };
+    },
+    _info() {
+      const { err, vibrateData } = this;
+      let ret = { vibrateData };
+      if (err) {
+        Object.assign(ret, { err });
+      }
+      return ret;
     },
   },
   created() {
@@ -63,8 +72,13 @@ export default {
     handlePlay() {
       // if (this.playing) return;
       if (audioPlayer) {
-        window.navigator.vibrate(this.vibrateData.parameters);
-        audioPlayer.play();
+        try {
+          window.navigator.vibrate(this.vibrateData.parameters);
+        } catch (err) {
+          this._info = err;
+        } finally {
+          audioPlayer.play();
+        }
       }
     },
     bindWindowSize() {
